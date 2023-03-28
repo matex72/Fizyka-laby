@@ -1,7 +1,0 @@
-obliczanie niepewnosci Is - co to wynik
-niepewnosc na wykresie? która
-współczynnik kierunkowy - ja z tych wszystkich, ale w jakim formacie?
-
-Średnia ważona - waga to niepewnosc?
-
-jaki typ przewodnika?
