@@ -1,0 +1,188 @@
+\documentclass[12pt]{article}
+\usepackage{polski}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{float}
+\graphicspath{ {./images/} }
+\usepackage{setspace}
+\onehalfspacing
+
+\title{ Wyznaczenie długości fali światła laserowego przy pomocy siatki
+dyfrakcyjnej \\
+    \large Informatyka – profil praktyczny, semestr II \\
+    Wydział Matematyki Stosowanej \\
+    Politechnika Śląska \\}
+
+\author{ Sekcja 5 \\
+    Piotr Skowroński, Bartłomiej Pacia}
+\date{Marzec 2022}
+
+\begin{document}
+
+\maketitle
+
+\section{Wstęp teoretyczny}
+
+Od początku XX wieku wiemy, że światło ma naturę dualną. Oznacza to, że zjawiska
+charakterystyczne dla fal, jak np. interferencja i dyfrakcja, wyjaśnia się za
+pomocą teorii falowej. Do zjawisk, których teoria falowa nie jest w stanie
+wyjaśnić, używa się teorii korpuskularnej.
+
+Jednym z parametrów charakteryzujących falę jest jej długość. Jest to
+najmniejsza odległość między dwoma punktami o tej samej fazie drgań.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{waves.png}
+    \caption{Wizualizacja długości fali. Oznacza się ją grecką literą $\lambda$ (lambda). }
+\end{figure}
+Długości fal świetlnych, które widzimy, mają długość od 380 do 780 nm.
+Siatka dyfrakcyjna jest to przyrząd, służący do przeprowadzenia analizy widmowej światła.
+
+Zbudowana jest z układu równych, równoległych i jednakowo rozmieszczonych szczelin.
+Działanie siatki polega na wykorzystaniu zjawiska dyfrakcji i interferencji światła do uzyskania jego widma.
+W tym celu pomiędzy źródłem światła a ekranem umieszcza się siatkę dyfrakcyjną. Na ekranie uzyskuje się w ten sposób widmo światła.
+
+\section{Pomiary}
+
+Podczas wykonywania doświadczenia w pracowni pomiary zapisywaliśmy ręcznie na
+kartce. Następnie przepisaliśmy wyniki naszych pomiarów do pliku JSON, by
+umożliwić ich wykorzystanie w programie.
+
+Do obliczeń wykorzystaliśmy język Python w środowisku Jupyter Notebook.
+
+\section{Obliczenia}
+
+\subsection*{Zadanie 1. Obliczenie średniej wartości $x_N$ dla każdej pary $x_L$
+    i $x_P$.} Przyjmiemy niepewności $u(x_L)=0.003m$, $u(x_P)=0.003m$ i $u(L)=0.003m$, związane
+z niepewnością linijki. Wartości średnich liczymy ze wzoru $x_N = \frac{x_L + x_P}{2}$ dla każdej pary $x_L$, $x_P$.
+
+Niepewność $u(x_N)$ wyznaczamy z prawa przenoszenia niepewności:
+\begin{center}
+    $u(x_N) = \sqrt{[\frac{\partial x_N}{\partial x_L}u(x_L)]^2 + [\frac{\partial x_N}{\partial x_P}u(x_P)]^2}$ \\
+\end{center}
+
+Po obliczeniach:
+\begin{center}
+    $u(x_N) = \frac{1}{2}\sqrt{u^2(x_L) + u^2(x_P)} = 0.0021$ m
+\end{center}
+
+\begin{center}
+    \begin{tabular} { | c | c | c | c | c | c | }
+        \hline
+        Lp. & $N$ & $L$, m   & $x_L$, m & $x_P$, m & $x_N$, m   \\
+        \hline
+        1.  & 1   & 0.100(3) & 0.018(3) & 0.018(3) & 0.0180(21) \\ \hline
+        2.  & 2   & 0.100(3) & 0.040(3) & 0.039(3) & 0.0395(21) \\ \hline
+        3.  & 3   & 0.100(3) & 0.066(3) & 0.065(3) & 0.0655(21) \\ \hline
+        4.  & 4   & 0.100(3) & 0.106(3) & 0.110(3) & 0.1080(21) \\ \hline
+        5.  & 1   & 0.200(3) & 0.039(3) & 0.038(3) & 0.0385(21) \\ \hline
+        6.  & 2   & 0.200(3) & 0.081(3) & 0.080(3) & 0.0805(21) \\ \hline
+        7.  & 3   & 0.200(3) & 0.136(3) & 0.136(3) & 0.1360(21) \\ \hline
+        8.  & 1   & 0.300(3) & 0.058(3) & 0.058(3) & 0.0580(21) \\ \hline
+        9.  & 2   & 0.300(3) & 0.122(3) & 0.123(3) & 0.1230(21) \\ \hline
+        10. & 3   & 0.300(3) & 0.205(3) & 0.215(3) & 0.2100(21) \\ \hline
+        11. & 1   & 0.400(3) & 0.078(3) & 0.077(3) & 0.0755(21) \\ \hline
+        12. & 2   & 0.400(3) & 0.166(3) & 0.164(3) & 0.1650(21) \\ \hline
+        13. & 1   & 0.500(3) & 0.097(3) & 0.097(3) & 0.0970(21) \\ \hline
+        14. & 2   & 0.500(3) & 0.205(3) & 0.216(3) & 0.2110(21) \\
+        \hline
+    \end{tabular}
+\end{center}
+
+\subsection*{Zadanie 2. Obliczenie długości fali światła laserowego dla każdego $x_N$}
+
+Aby obliczyć długość fali światła laserowego skorzystamy ze wzoru:
+\begin{center}
+    $\lambda = \frac{d}{N} \cdot \frac{x_N}{\sqrt{x_N^2+L^2}}$
+\end{center}
+Gdzie:
+
+$d$ - stała siatki dyfrakcyjnej
+
+$L$ - odległość siatki od ekranu
+
+$N$ - rząd prążka dyfrakcyjnego
+
+$d = \frac{1mm}{\text{liczba nacięć na siatce na 1mm}} = \frac{1mm}{300} =
+    \frac{1}{300000}$ m
+
+
+\begin{center}
+    \begin{tabular} { | c | c | c | c | c | }
+        \hline
+        Lp. & N  & $L$, m   & $x_N$, m   & $\lambda$, nm \\
+        \hline
+        1.  & 1  & 0.100(3) & 0.0180(21) & 591(73)       \\ \hline
+        2.  & 2  & 0.100(3) & 0.0395(21) & 612(39)       \\ \hline
+        3.  & 3  & 0.100(3) & 0.0655(21) & 609(25)       \\ \hline
+        4.  & 4  & 0.100(3) & 0.1080(21) & 611(15)       \\ \hline
+        5.  & 1  & 0.200(3) & 0.0385(21) & 630(37)       \\ \hline
+        6.  & 2  & 0.200(3) & 0.0805(21) & 622(19)       \\ \hline
+        7.  & 3  & 0.200(3) & 0.1360(21) & 625(13)       \\ \hline
+        8.  & 1  & 0.300(3) & 0.0580(21) & 633(25)       \\ \hline
+        9.  & 2  & 0.300(3) & 0.1230(21) & 630(13)       \\ \hline
+        10. & 3  & 0.300(3) & 0.2100(21) & 637(10)       \\ \hline
+        11. & 1. & 0.400(3) & 0.0755(21) & 634(18)       \\ \hline
+        12. & 2. & 0.400(3) & 0.1650(21) & 636(10)       \\ \hline
+        13. & 1. & 0.500(3) & 0.0970(21) & 635(15)       \\ \hline
+        14. & 2. & 0.500(3) & 0.2110(21) & 647(11)       \\
+        \hline
+    \end{tabular}
+\end{center}
+
+\subsection*{Zadanie 3. Obliczenie niepewności długości fali $u(\lambda$).}
+Aby wyliczyć niepewności długości fal, skorzystamy z prawa przenoszenia
+niepewności. Przyjmujemy, że niepewność L wynosi $u(L) = 0.003$m. Prawo
+przenoszenia niepewności wyraża się wzorem:
+
+\begin{center}
+    $u(y)=\sqrt{\sum_{i=1}^{k}[\frac{\partial y}{\partial x_i}u(x_i)]^2}$
+\end{center}
+Zatem prawo przenoszenia niepewności dla $\lambda$ ma postać:
+\begin{center}
+
+    $u(\lambda) = \sqrt{[\frac{\partial \lambda}{\partial x_n}u(x_n)]^2 +
+        [\frac{\partial \lambda}{\partial L}u(L)]^2}$
+\end{center}
+Po uproszczeniu:
+\begin{center}
+    $u(\lambda) = \sqrt{[\frac{dL^2u(x_N)}{N(x_N^2+L^2)^{1.5}}]^2  +
+        [\frac{-dLx_Nu(L)}{N(x_N^2+L^2)^{1.5}}]^2}$
+\end{center}
+Niepewności pomiarowe dla $\lambda$ wprowadziliśmy od razu do tabelki powyżej.
+
+\subsection*{Zadanie 4. Obliczenie średniej ważonej z $\lambda$.}
+Wzór na średnią ważoną ma postać:
+\begin{center}
+    $\bar{\lambda} = \frac{\sum_{i=1}^{N}\lambda_iw_i}{\sum_{i=1}^{N}w_i}$,
+    gdzie $w_i = \frac{1}{u^2(\lambda_i)}$
+\end{center}
+Zatem po zliczeniu wszystkich danych otrzymujemy:
+\begin{center}
+    $\bar{\lambda} = 634$ nm
+\end{center}
+
+\subsection*{Zadanie 5. Obliczenie niepewności średniej ważonej}
+Wzór na niepewność średniej ważonej ma postać:
+\begin{center}
+    $u(\bar{\lambda}) = \frac{1}{\sqrt{\sum_{i=1}^{N}w_i}}$
+\end{center}
+Po obliczeniach:
+\begin{center}
+    $u(\bar{\lambda}) = 3.7$ nm
+\end{center}
+\subsection*{Zadanie 6. Zapisanie wyników w odpowiednim formacie}
+Końcowa wartość $\lambda$ ma wartość średniej ważonej wraz z jej niepewnością:
+\begin{center}
+    $\lambda = 634.0(3.7) $ nm
+\end{center}
+
+\subsection*{7. Wnioski}
+Zmierzona przez nas długość fali światła laserowego $\lambda$ odpowiada kolorowi czerwonemu.
+Zgadza się to z faktycznym kolorem lasera w pracowni. \\
+Końcowe niepewności pomiarów wynikają z niepewności linijki użytej do pomiaru
+odległości siatki od ekranu, jak również z nieprawidłowego odczytu odległości prążków od prążka zerowego.
+\end{document}
