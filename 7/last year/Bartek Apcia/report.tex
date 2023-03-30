@@ -1,0 +1,328 @@
+\documentclass[12pt]{article}
+\usepackage{polski}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{pdfpages}
+\onehalfspacing
+
+
+\title{ Wyznaczanie przyspieszenia ziemskiego metodą spadku swobodnego \\
+    \large Informatyka – profil praktyczny, semestr II \\
+    Wydział Matematyki Stosowanej \\
+    Politechnika Śląska \\}
+
+\author{ Sekcja 5 \\
+    Piotr Skowroński, Bartłomiej Pacia}
+\date{Kwiecień 2022}
+
+\begin{document}
+
+\maketitle
+
+\section{Wstęp teoretyczny}
+
+Spadek swobodny to jedno z najbardziej znanych i pospolitych zjawisk fizycznych.
+Jest to ruch odbywający się wyłącznie pod wpływem siły grawitacji, bez oporów
+ośrodka. W rzeczywistości "idealny" spadek swobodny bardzo rzadko występuje na
+Ziemi z powodu posiadania przez nią atmosfery i związanym z tym występowaniem
+oporów powietrza, ale często można je pominąć i rozpatrywać dane zdarzenie jako
+spadek swobodny.
+
+Spadek swobodny zawsze zaczyna się w spoczynku. To odróżnia go od rzutu, w
+którym ciało początkowe ma już jakąś prędkość początkową w momencie rozpoczęcia
+spadania.
+
+\section{Pomiary}
+
+Podczas wykonywania doświadczenia w pracowni pomiary zapisywaliśmy ręcznie na
+kartce. Następnie przepisaliśmy wyniki naszych pomiarow do pliku CSV, by
+umożliwić ich wykorzystanie w programie.
+
+Użyliśmy języka Python w środowisku Jupyter Notebook. Wykorzystaliśmy biblioteki
+\textit{numpy}, \textit{pandas} i \textit{matplotlib}.
+
+\section{Obliczenia i wykresy}
+
+\subsection*{Obliczenie niepewności typu $a$ (statystycznych) średnich czasów
+    spadania $u_a(t_{sr})$.} Aby policzyć niepewności typu $a$ skorzystamy ze
+wzoru:
+\begin{center}
+    $u_a(t_{sr}) = \sqrt{\frac{1}{N(N-1)} \displaystyle\sum_{i=1}^{N} (t_i -
+            t_{sr})^2} \cdot t_{\alpha, N}$.
+\end{center}
+Gdzie:
+\begin{flushleft}
+    $t_{\alpha, N}$ - Współczynnik Studenta Fishera, gdzie za $\alpha$
+    przyjmujemy 0.6828, a za $N$ liczbę pomiarów w serii, czyli w naszym
+    przypadku 5.
+\end{flushleft}
+\begin{center}
+    $t_{\alpha=0.6828,N=5} = 1.141$
+\end{center}
+Po uwzględnieniu wszystkich danych wychodzi nam:
+\begin{center}
+    \begin{tabular} { | c | c | c | }
+        \hline
+        Lp. & $t_{sr}$, s & $u_a(t_{sr})$, s \\
+        \hline
+        1.  & 0.34900     & 0.00074          \\ \hline
+        2.  & 0.37600     & 0.00036          \\ \hline
+        3.  & 0.40200     & 0.00023          \\ \hline
+        4.  & 0.42800     & 0.00069          \\ \hline
+        5.  & 0.45100     & 0.00023          \\ \hline
+        6.  & 0.47300     & 0.00086          \\ \hline
+        7.  & 0.49500     & 0.00000          \\ \hline
+        8.  & 0.51600     & 0.00062          \\ \hline
+        9.  & 0.53700     & 0.00058          \\ \hline
+        10. & 0.55600     & 0.00039          \\
+        \hline
+    \end{tabular}
+\end{center}
+
+\subsection*{Obliczenie niepewności typu $b$ pomiaru czasu $u_b(t)$}
+Aby policzyć niepewność typu $b$ pomiaru czaus $u_b(t)$ skorzystamy ze wzoru:
+\begin{center}
+    $u_b(x) = \frac{\Delta x}{\sqrt{3}}$.
+\end{center}
+Gdzie $\Delta x = 0.003$ s dla użytego przyrządu.
+\begin{center}
+    $u_b(t) = \frac{0.003}{\sqrt{3}} = 0.0017$ s.
+\end{center}
+
+\subsection*{Obliczenie niepewności całkowitych średnich czasów  \\
+    spadania $u(t_{sr})$ i umieszczenie wyników w tabeli}
+
+Do policzenia niepewności całkowitych średnich czasów spadania \\
+skorzystamy ze wzoru:
+\begin{center}
+    $u(t_{sr}) = \sqrt{u_a^2(t_{sr}) + u_b^2(t)}$
+\end{center}
+Tabelka z danymi:
+\begin{center}
+    \begin{tabular} { | c | c | c | c | c | }
+        \hline
+        Lp. & $H$, m & $\sqrt{H}$, $\sqrt{m}$ & $t_{sr}$, s & $u(t_{sr})$, s \\
+        \hline
+        1.  & 0.600  & 0.775                  & 0.3490      & 0.0019         \\
+        \hline
+        2.  & 0.700  & 0.837                  & 0.3760      & 0.0018         \\
+        \hline
+        3.  & 0.800  & 0.894                  & 0.4020      & 0.0017         \\
+        \hline
+        4.  & 0.900  & 0.949                  & 0.4280      & 0.0019         \\
+        \hline
+        5.  & 1.000  & 1.000                  & 0.4510      & 0.0017         \\
+        \hline
+        6.  & 1.100  & 1.049                  & 0.4730      & 0.0019         \\
+        \hline
+        7.  & 1.200  & 1.095                  & 0.4950      & 0.0017         \\
+        \hline
+        8.  & 1.300  & 1.140                  & 0.5160      & 0.0018         \\
+        \hline
+        9.  & 1.400  & 1.180                  & 0.5370      & 0.0018         \\
+        \hline
+        10. & 1.500  & 1.220                  & 0.5560      & 0.0018         \\
+        \hline
+    \end{tabular}
+\end{center}
+
+\subsection*{Wykres zależności $t_{sr}$ od $H$}
+
+Dla wykresu przyjmujemy następujące niepewności: \\
+$u(H) = 0.003$ m \\
+$u(t_{sr})$ - Niepewności całkowite średnich czasów spadania.
+\includepdf{images/wykres1.jpg}
+
+\subsection*{Wykres zależności $t_{sr}$ od $\sqrt{H}$}
+
+Dla wykresu przyjmujemy następujące niepewności: \\
+$u(t_{sr})$ - Niepewności całkowite średnich czasów spadania. \\
+Aby policzyć niepewność $u(\sqrt{H})$ musimy użyć prawa przenoszenia
+niepewności:
+\begin{center}
+    $u(y)=\sqrt{\sum_{i=1}^{k}[\frac{\partial y}{\partial x_i}u(x_i)]^2}$.
+\end{center}
+Dla $y = \sqrt{H}$ równanie ma postać:
+\begin{center}
+    $u(\sqrt{H}) = \sqrt{[\frac{u(H)}{2\sqrt{H}}]^2} = \frac{u(H)}{2\sqrt{H}}$.
+\end{center}
+Tabelka z danymi:
+\begin{center}
+    \begin{tabular} { | c | c | c | }
+        \hline
+        Lp. & $\sqrt{H}, \sqrt{m}$ & $u(\sqrt{H}), \sqrt{m}$ \\
+        \hline
+        1.  & 0.7750               & 0.0065                  \\ \hline
+        2.  & 0.8370               & 0.0060                  \\ \hline
+        3.  & 0.8940               & 0.0056                  \\ \hline
+        4.  & 0.9490               & 0.0053                  \\ \hline
+        5.  & 1.0000               & 0.0050                  \\ \hline
+        6.  & 1.0490               & 0.0048                  \\ \hline
+        7.  & 1.0950               & 0.0046                  \\ \hline
+        8.  & 1.1400               & 0.0044                  \\ \hline
+        9.  & 1.1800               & 0.0042                  \\ \hline
+        10. & 1.2200               & 0.0041                  \\ \hline
+    \end{tabular}
+\end{center}
+Wykres na następnej stronie:
+
+\includepdf{images/wykres2.jpg}
+
+\subsection*{Wyznaczenie metodą regresji liniowej współczynników prostej
+    $t_{sr}(\sqrt{H})$ wraz z niepewnościami}
+
+Aby policzyć współczynniki kierunkowe prostych i wyrazy wolne skorzystamy ze
+wzorów:
+\begin{flushleft}
+
+    \begin{center}
+        $a = \frac{nS_{xy} - S_xS_y}{nS_{xx}-S_x^2}$, $b
+            =\frac{S_{xx}S_y-S_xS_{xy}}{nS_{xx}-S_x^2}$
+    \end{center}
+    Gdzie: \\
+    \begin{center}
+        $S_x=\displaystyle\sum_{i=1}^{n}x_i$,
+        $S_y=\displaystyle\sum_{i=1}^{n}y_i$,
+        $S_{xx}=\displaystyle\sum_{i=1}^{n}x_i^2$,
+        $S_{xy}=\displaystyle\sum_{i=1}^{n}x_i \cdot y_i$ \\
+    \end{center}
+\end{flushleft}
+
+\begin{flushleft}
+    Do obliczenia niepewności skorzystamy ze wzorów:
+    \begin{center}
+        $u(a) = \sqrt{\frac{n}{n-2} \cdot
+                \frac{S_{\epsilon\epsilon}}{nS_{xx}-S_x^2}}$, $u(b) =
+            \sqrt{\frac{1}{n-2} \cdot
+            \frac{S_{xx}S_{\epsilon\epsilon}}{nS_{xx}-S_x^2}}$ \\
+    \end{center}
+    Gdzie: \\
+    \begin{center}
+        $S_{\epsilon\epsilon}=\displaystyle\sum_{i=1}^{n}\epsilon_i^2$, dla
+        $\epsilon_i = y_i - ax_i - b$
+    \end{center}
+
+\end{flushleft}
+
+\begin{flushleft}
+    Po obliczeniach wartości współczynników są równe:
+\end{flushleft}
+
+\begin{center}
+    $a = 0.4500\frac{s}{\sqrt{m}}$, \\
+    $b = -0.00872$ s.
+\end{center}
+
+\begin{flushleft}
+    Wartości niepewności współczynników prostej:
+\end{flushleft}
+
+\begin{center}
+    $u(a) = 0.0021 \frac{s}{\sqrt{m}}$, \\
+    $u(b) = 0.00220$ s.
+\end{center}
+Postać końcowa:
+\begin{center}
+    $a = 0.4500(21)\frac{s}{\sqrt{m}}$, $b = -0.00872(220)$ s
+\end{center}
+\subsection*{Wyznaczenie przyspieszenia ziemskiego $g$}
+
+Aby wyprowadzić wzór na przyspieszenie ziemskie skorzystamy z równania na drogę
+w ruchu jednostajnie przyspieszonym:
+\begin{center}
+    $ S = S_{0} + v_{0}t + \frac{1}{2}at^2$
+\end{center}
+Przyjmując $S_{0} = 0$ i $v_{0} = 0$ oraz zamieniając drogę $S$ na wysokość $H$
+i przyspieszenie $a$ na przyspieszenie ziemskie $g$ otrzymujemy:
+\begin{center}
+    $H = \frac{1}{2}gt^2$
+\end{center}
+Przekształcając wzór, w celu wyznaczenia $g$:
+\begin{center}
+    $g = \frac{2H}{t^2}$
+\end{center}
+Współczynnik kierunkowy funkcji $t_{sr}(\sqrt{H})$ jest równy $a =
+    \frac{t_{sr}}{\sqrt{H}}$. Możemy to $a$ podstawić do wzoru na $g$ i
+otrzymujemy:
+\begin{center}
+    $g = \frac{2}{a^2}$
+\end{center}
+Po wstawieniu odpowiednich danych otrzymujemy:
+\begin{center}
+    $g = \frac{2}{0.45^2} = 9.88 \frac{m}{s^2}$
+\end{center}
+
+\subsection*{Obliczenie niepewności przyspieszenie ziemskiego $g$ \\
+    korzystając z prawa przenoszenia niepewności}
+
+Aby wyliczyć niepewność przyspieszenia ziemskiego $g$, skorzystamy z prawa
+przenoszenia niepewności. Przyjmujemy, że niepewność $u(a) = 0.00214
+    \frac{s}{\sqrt{m}}$. Prawo przenoszenia niepewności wyraża się wzorem:
+\begin{center}
+    $u(y) = \sqrt{\sum_{i=1}^{k}[\frac{\partial y}{\partial x_i}u(x_i)]^2}$
+\end{center}
+Zatem prawo przenoszenia niepewności dla $g$ ma postać:
+\begin{center}
+    $u(g) = \sqrt{(\frac{-4}{a^3} \cdot u(a))^2}$
+\end{center}
+Po wstawieniu liczb:
+\begin{center}
+    $u(g) = 0.094 \frac{m}{s^2}$
+\end{center}
+
+\subsection*{Obliczenie niepewności rozszerzonej}
+Aby policzyć niepewność rozszerzoną skorzystamy ze wzoru:
+\begin{center}
+    $U(y) = k \cdot u(y)$.
+\end{center}
+Gdzie: \\
+\indent $k$ - bezwymiarowy współczynnik rozszerzenia. Przyjmujemy $k=2$. \\
+\indent $u(y)$ - niepewność badanej wartości. \\
+Dla $g$:
+\begin{center}
+    $U(g) = 2 \cdot u(g) = 0.19 \frac{m}{s^2}$. \\
+    $g = 9.88 \pm 0.19 \frac{m}{s^2}$.
+\end{center}
+\subsection*{Obliczenie przyspieszenia ziemskiego dla Gliwic i \\
+    porównanie wyniku z otrzymaną wartością}
+
+Aby policzyć przyspieszenie ziemskie dla danej szerokości geograficznej i
+wysokości nad poziomem morza, skorzystamy ze wzoru:
+\begin{center}
+    $g_{\varphi} \approx 9.780318(1+0.0053024\sin^2\varphi -
+        0.0000058\sin^22\varphi)-3.086 \cdot 10^{-6}h$
+\end{center}
+Gdzie: \\
+\indent $\varphi$ - szerokość geograficzna [$^{\circ}$], \\
+\indent $h$ - wysokość nad poziomem morza [m]. \\
+Przyjmując szerokość geograficzną $\varphi = 50.3^{\circ}$ i wysokość nad
+poziomem \\
+morza $h = 219$ m otrzymujemy:
+\begin{center}
+    $g_0 = 9.80 \frac{m}{s^2}$.
+\end{center}
+Przeprowadzimy test zgodności otrzymanego $g$ w wyniku doświadczenia z
+przyspieszeniem ziemskim $g_0$ dla Gliwic: \\
+Test zgodności ma postać:
+\begin{center}
+    $|y - y_0| < U(y)$ \\
+\end{center}
+Wstawiając $g$ i $g_0$:
+\begin{center}
+    $|g - g_0| < U(g)$ \\
+    $ 0.07 < 0.188 $
+\end{center}
+Co pokazuje, że test zgodności zachodzi dla $g$ zmierzonego przez nas.
+
+\subsection*{Wnioski}
+
+Otrzymane wyniki potwierdziły poprawność wzoru na czas spadku swobodnego.
+
+Co prawda doświadczenia nie wykonaliśmy w próżni, ale masa naszej kulki była na
+tyle duża, a jej rozmiar i odległość z jakiej ją zrzucaliśmy na tyle małe, a że
+mogliśmy zaniedbać opory powietrza.
+
+\end{document}
